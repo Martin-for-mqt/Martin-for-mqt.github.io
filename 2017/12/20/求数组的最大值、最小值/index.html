@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Martin の Blog</title>
+  <title>js 求数组的最大值、最小值思路详解 | Martin の Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Martin の Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="相信很多人都知道这些方法，但是我希望看的人能够认真看一遍~我相信对你是有帮助的 求两个数字的最大值，相信大家第一个想到的都是利用内置对象 Math 中的 max 方法 我们先来简单的回顾一下这个方法的相关内容，对 Math.max 不熟悉点 这里 1Math.max([value1 [, value2 [, ...]) 参数&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 求数组的最大值、最小值思路详解">
+<meta property="og:url" content="http://yoursite.com/2017/12/20/求数组的最大值、最小值/index.html">
 <meta property="og:site_name" content="Martin の Blog">
+<meta property="og:description" content="相信很多人都知道这些方法，但是我希望看的人能够认真看一遍~我相信对你是有帮助的 求两个数字的最大值，相信大家第一个想到的都是利用内置对象 Math 中的 max 方法 我们先来简单的回顾一下这个方法的相关内容，对 Math.max 不熟悉点 这里 1Math.max([value1 [, value2 [, ...]) 参数&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;v">
+<meta property="og:updated_time" content="2017-12-21T12:09:57.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Martin の Blog">
+<meta name="twitter:title" content="js 求数组的最大值、最小值思路详解">
+<meta name="twitter:description" content="相信很多人都知道这些方法，但是我希望看的人能够认真看一遍~我相信对你是有帮助的 求两个数字的最大值，相信大家第一个想到的都是利用内置对象 Math 中的 max 方法 我们先来简单的回顾一下这个方法的相关内容，对 Math.max 不熟悉点 这里 1Math.max([value1 [, value2 [, ...]) 参数&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;v">
   
     <link rel="alternative" href="/atom.xml" title="Martin の Blog" type="application/atom+xml">
   
@@ -141,49 +145,314 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-求数组的最大值、最小值" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/求数组的最大值、最小值/" class="archive-article-date">
-  	<time datetime="2017-12-20T12:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/求数组的最大值、最小值/">js 求数组的最大值、最小值思路详解</a>
+    <h1 class="article-title" itemprop="name">
+      js 求数组的最大值、最小值思路详解
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2017/12/20/求数组的最大值、最小值/" class="archive-article-date">
+  	<time datetime="2017-12-20T12:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相信很多人都知道这些方法，但是我希望看的人能够认真看一遍~我相信对你是有帮助的</p>
+<p>求两个数字的最大值，相信大家第一个想到的都是利用内置对象 Math 中的 max 方法</p>
+<p>我们先来简单的回顾一下这个方法的相关内容，对 Math.max 不熟悉点 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/max" target="_blank" rel="external">这里</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max([value1 [, value2 [, ...])</span><br></pre></td></tr></table></figure>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value1, value2, ……</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以逗号分割的一组数字</p>
+<h5 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回给定的一组数字中的最大值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果给定的参数中至少有一个参数无法被转换成数字，则会返回 NaN。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果没有参数，则结果为 - Infinity。</p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><pre><code>Math.max(10, 20)    
+//  20 
 
+Math.max(3, 1, 2, -9)
+//  3
+
+Math.max(&apos;10&apos;, 8, 5, 3) 
+//  10 
+//  字符串 &apos;10&apos; 可以强制转换为数字，所以返回 10
+
+Math.max(&apos;a&apos;, 0, 15)  
+//  NaN
+//  字符串 &apos;a&apos; 不能转换成数字，所以返回 NaN
+
+Math.max()
+//  -Infinity
+//  没有参数，所以返回 -Infinity
+</code></pre><p><br></p>
+<p>一般会把一堆数字存放在一个数组里，然后去求这个数组中的最大值，但是数组中并没有提供这样一个方法，那我们就自己写一个吧～</p>
+<p>先整理一下思路：</p>
+<ol>
+<li>将数组中第一个元素赋值给一个变量 max ，并且把这个变量作为最大值</li>
+<li>开始遍历数组，从第二个元素开始依次和作为最大值的变量 max 进行比较</li>
+<li>如果当前的元素的值大于变量 max ，就把当前的元素的值赋值给变量 max</li>
+<li>移动到下一个元素，重复步骤 3</li>
+<li>当数组元素遍历结束时，变量 max 就是这个数组中的最大值</li>
+</ol>
+<p>代码如下：</p>
+<pre><code>var arr = [ 10, 900, -6, 0 , 46, 89, 23];
+
+//  将数组的第一个元素的值赋值给变量 max
+var max = arr[0]; 
+
+//  使用 for 循环从数组中的第二个值(即下标为1)开始做遍历
+for( var i = 1; i &lt; arr.length ; i++ ) {
+    if( arr[i] &gt; max ) {
+        max = arr[i];
+    }
+}
+
+max // 900 此时即可算出数组 arr 中的最大值
+</code></pre><p>可是这样的求最大值的代码只能使用一次，而且只能求变量 arr 的最大值，当需要求多个数组的最大值时，难道需要写多个这种的 for 循环吗 ？ 答案肯定是 NO ! 作为程序员的我们，肯定是想写成可复用的代码，于是我们来将这个方法提炼成一个函数，代码如下：</p>
+<pre><code>var arr1 = [ 10, 900, -6, 0 , 46, 89, 23];
+var arr2 = [ 78, 56, 13, -9 ];
+var arr3 = [ 67, 25, 8];
+
+function findMax ( arr ) {
+    var max = arr[0]; 
+    for( var i = 1; i &lt; arr.length ; i++ ) {
+        if( arr[i] &gt; max ) {
+            max = arr[i];
+        }
+    }
+    return max  //  返回求出的最大值
+}
+
+findMax( arr1 ) //  900
+findMax( arr2 ) //  78
+findMax( arr3 ) //  67
+</code></pre><p>嗯 ~ 当写成这种函数的形式时就会发现方便多了，我们可以复用这个方法求不同数组中的最大值了，于是乎我将这个函数放进公司的公共组件库中，但是这个方法是否还有可以优化的地方呢 ？ 这是一个很值得思考的问题 。</p>
+<h5 id="问题如下："><a href="#问题如下：" class="headerlink" title="问题如下："></a>问题如下：</h5><ol>
+<li>在 for 循环中每次都需要求 arr.length 的值</li>
+<li>如果传进来的参数 arr 是个空数组，应该返回什么？</li>
+<li>如果传进来的参数 arr 不是一个数组，是一个字符串或者是一个对象，应该如何处理，是否需要对此进行判断</li>
+<li>如果传进来的参数 arr 是一个数组，但是里面的元素不都能转换为数字，例如有对象，含有字母的字符串，又该如何处理</li>
+</ol>
+<p>大家都知道，javascript 是一个单线程的语言，程序中只要有一个地方出错，整个程序可能都运行不了了，所以在写程序的时候需要考虑多一些情况，特别是在编写公共组件的时候。</p>
+<p>我们可以参考 Math.max 的返回值规则来对以上问题进行处理，我们对这个函数做一下规定：</p>
+<ol>
+<li>这个函数的功能是是求一个数组的最大值，当传入的参数不是数组时，例如：对象、数字、字符串等，应当返回 NaN</li>
+<li>当传进来的数组 arr 是个空数组，返回 - Infinity</li>
+<li>当传进来的数组 arr 中含有不能转换为数字的元素时，返回 NaN</li>
+<li>当传进来的数组 arr 中都是可转换成数组的元素时，返回求出的最大值且类型为数字</li>
+</ol>
+<p>==注意==：该规定是我自己定下来的，并不适合于所有的业务需求，大家需根据公司的业务来制定相应的规则，例如：当传进来的数组 arr 中含有不能转换为数字的元素时，跳过该元素，继续求最大值，等等</p>
+<h5 id="优化后的代码如下："><a href="#优化后的代码如下：" class="headerlink" title="优化后的代码如下："></a>优化后的代码如下：</h5><pre><code>function findArrayMax ( arr ) {
+    //  首先判断参数 arr 是不是一个数组
+    if ( Object.prototype.toString.call( arr ) === &apos;[object Array]&apos; ) {
+        //  将变量 max 的初始值设置为 - Infinity，并将数组的长度用变量保存起来，避免循环时重复求值
+        var max = - Infinity, len = arr.length;
+
+        //  使用 for 循环遍历数组中的元素
+        for( var i = 0; i &lt; len; i++ ) {
+            // 如果该元素为 NaN 则该函数直接返回 NaN
+            if ( isNaN( arr[i]) ) {
+                return NaN
+            } else if( arr[i] &gt; max ) {
+                max = arr[i];
+            }
+        }
+
+        //  遍历完成后，将返回最大值 max 
+        return Number(max)
+    } else {
+        //  如果不是数组则返回 NaN
+        return NaN
+    }
+}
+
+findArrayMax([10, 900, -6, 0 , 46, 89, 23]) // 正常情况 900
+findArrayMax([]) // 空数组 - Infinity 
+findArrayMax({}) // 不是数组 NaN
+</code></pre><p>看着优化完的代码感觉好像没有规则或逻辑上的问题了，那相对于代码来讲还没有可以优化的地方呢?<br>在此我提出几个疑问：</p>
+<ol>
+<li>既然规定是数组才可以使用这个函数，那是不是可以在数组 Array 构造函数的原型上添加一个求数组中最大值的方法 max ，这样就可免去判断传进来的参数是否为数组类型的步骤</li>
+<li>for 循环中的判断元素是否能强制转换成数字和大小的比较是否太过于繁琐，有没有更好的方法去判断(暂时没想到)</li>
+</ol>
+<h5 id="代码继续优化"><a href="#代码继续优化" class="headerlink" title="代码继续优化"></a>代码继续优化</h5><pre><code>// 如果 Array 的原型上没有 max 方法的话则添加一个
+if( !Array.prototype.max ){  
+    Array.prototype.max = function() { 
+        var max = - Infinity, len = this.length;
+        for( var i = 0; i &lt; len; i++ ) {
+            max =  isNaN(this[i]) ? NaN :  this[i] &gt; max ? this[i] : max
+        }
+        return +max // 隐式转换成数字
+    }
+}
+</code></pre><p>既然是针对于数组的原型上扩展的方法，那我们是不是可以利用一些数组的内置方法再来优化一下呢?</p>
+<p>例如数组的内置方法 forEach ，可以省去求数组的长度，并利用 Math.max 进行两个数最大值的比较</p>
+<pre><code>if( !Array.prototype.max ){  
+    Array.prototype.max = function() { 
+        var max = - Infinity;
+        this.forEach(function(val){
+            max = Math.max(max, val)
+        })
+        return max
+    }
+}
+</code></pre><p>还有没有数组的内置函数可以利用呢？ 大家还记得 reduce 方法么? 不记得点<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="external">这里</a></p>
+<pre><code>if( !Array.prototype.max ){  
+    Array.prototype.max = function() { 
+        return this.reduce(function(a, b){
+            return Math.max(a, b)
+        }, - Infinity)
+    }
+}
+</code></pre><p>到这里我们用的都是数组有关的知识点，而且比较大小也是两个两个变量进行比较和赋值，有没有更好的办法是不需要两个两个比较的呢，明明 Math.max 方法是可以传一组数字进去的，还有没有 js 内置的方法可以利用的呢?有什么方法是可以把数组拆开的呢? 给大家一个提示，fun.apply( ) 和 fun.call( ) 这两个方法是有什么区别呢?  </p>
+<p>call( ) 方法的作用和 apply( ) 方法类似，只有一个区别，就是 call( ) 方法接受的是若干个参数的列表，而 apply( ) 方法接受的是一个包含多个参数的数组。所以我们可以利用 apply 方法来实现。对 apply 方法不熟悉的可以点<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="external">这里</a></p>
+<h5 id="利用-apply"><a href="#利用-apply" class="headerlink" title="利用 apply"></a>利用 apply</h5><pre><code>Array.prototype.max = function() { 
+    return Math.max.apply( null, this );
+}
+</code></pre><p>在 ES6中也新增的相关运算符，对 ES6 中的扩展运算符不熟悉的可点<a href="http://es6.ruanyifeng.com/?search=%E6%89%A9%E5%B1%95&amp;x=0&amp;y=0#docs/array#%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6" target="_blank" rel="external">这里</a></p>
+<h5 id="利用-ES6-中的扩展运算符"><a href="#利用-ES6-中的扩展运算符" class="headerlink" title="利用 ES6 中的扩展运算符"></a>利用 ES6 中的扩展运算符</h5><pre><code>Array.prototype.max = function() { 
+    return Math.max(...this)
+}
+
+[10, 1, 5].max()    // 10
+</code></pre><p>求数组的最大值就大概这样，求最小值的思路相似，只要把 Math.max 改成 Math.min 即可，在这里就不重复阐述了。</p>
+<p>全部内容均由本人亲自编写，如发现有抄袭并没有注明出处，必当维权！</p>
+<p>有任何疑问或交流可发邮件至 690365451@qq.com</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢打赏，以后会更加努力的<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/weixinpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/20/求数组的最大值、最小值/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -206,8 +475,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
