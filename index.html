@@ -143,6 +143,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-String-vs-new-String-衍生出来的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/03/String-vs-new-String-衍生出来的问题/">String()  vs  new String() 衍生出来的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/03/String-vs-new-String-衍生出来的问题/" class="archive-article-date">
+  	<time datetime="2018-01-03T13:12:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Number 、 Boolean，也是相同的道理，在这里也一起说明。</p>
+<p>先来看一下我们一般是怎么创建一个数字、字符串和布尔值的：</p>
+<h5 id="以字面量的方式创建"><a href="#以字面量的方式创建" class="headerlink" title="以字面量的方式创建"></a>以字面量的方式创建</h5><pre><code>var num1 = 1;
+var str1 = &quot;I Love U&quot;;
+var bool1 = true;
+</code></pre><h5 id="使用该对象而不带-new-操作符"><a href="#使用该对象而不带-new-操作符" class="headerlink" title="使用该对象而不带 new 操作符"></a>使用该对象而不带 new 操作符</h5><pre><code>var num2 = Number(1);
+var str2 = String(&quot;I Love U&quot;);
+var bool2 = Boolean(true);
+</code></pre><h5 id="使用-new-操作符"><a href="#使用-new-操作符" class="headerlink" title="使用 new 操作符"></a>使用 new 操作符</h5><pre><code>var num3 = new Number(1);
+var str3 = new String(&quot;I Love U&quot;);
+var bool3 = new Boolean(true);
+</code></pre><p>看起来三种方式都创建了一个数字、字符串、布尔值，但是这三种创建出来的东西是否都一样呢？</p>
+<p>先来看看第一种，一般来说，都是使用字面量的方式来创建数字、字符串和布尔值的，方便、简单。可是使用这种方法创建的变量为什么还是能够使用对应对象中的方法呢？举个例子让大家更好的理解。</p>
+<pre><code>var str = &quot;I Love U&quot;;
+typeof str  //  string
+str.length  //  8
+</code></pre><p>变量 str 明明只是一个字面量，它的数据类型是一个字符串并不是一个对象，我们也没有为它添加 length 这个属性，为什么访问 length 这个属性时会返回字符串的长度呢？这中间发生了什么呢？</p>
+<p>其实 js 是有区分基本字符串类型和字符串对象的。当代码在一个字面量上(即例子中的变量 str )访问一个 String 对象的才有的属性时，js 会创建一个新的 String 对象，并且其值设置为变量中所包含的字符串的值，访问并打印出 length 属性，然后丢弃掉新创建的 String 对象。( Number 和 Boolean 也是相同的道理)<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="external">官方解释</a></p>
+<p>再来看看第二种方式，刚刚说了 js 是有区分基本字符串类型和字符串对象类型的，那么第二种方式创建出来的变量是字符串类型还是对象类型呢？又能不能调用相应的 String 对象中的方法或属性呢？</p>
+<pre><code>var str = String(&quot;I Love U&quot;);
+typeof str  //  string
+str.length  //  8
+str === &quot;I Love U&quot;  //  true
+</code></pre><p>以上例子说明：第二种方式创建出来的变量类型和第一种方式创建出来的变量都是基本字符串类型，通常不会使用第二种方法来创建相应的基础数据类型，而是使用第二种方法来将变量转换成相应的的基础数据类型，例如：</p>
+<pre><code>var str = String(1)     //  将数字 1 转换成字符串 1
+var num = Number(&apos;1&apos;)   //  将字符串 1 转换成 数字 1
+</code></pre><p>最后来看看第三种创建方式，第三种创建方式使用了 new 关键字，即是实例化了相应的对象，通过例子来深入认识它:</p>
+<pre><code>var strObj = new String(&quot;I Love U&quot;);
+var str = &quot;I Love U&quot;
+
+typeof strObj   //  object
+strObj.length   //  8
+strObj == &quot;I Love U&quot;    //  true
+strObj === &quot;I Love U&quot;   //  false
+
+strObj.custom = &apos;a&apos;;
+str.custom = &apos;a&apos;;
+strObj.custom   //  &apos;a&apos;
+str.custom      //  undefined
+</code></pre><p>通过以上例子可以看出，通过第三种方式创建的变量数据类型为对象，而不是基本数据类型字符串，在 String 构造函数中已经定义好 length 等属性和方法，所以可以正常的使用。也可以自己扩展需要的属性或方法，但是基本数据类型却不可以，虽然在添加时并没有报错，因为在执行这个操作时，js 创建了一个新的 String 对象，并扩展了 custom 这个属性，但是扩展完之后已经丢弃掉这个创建的对象了，所以再想取这个属性的时候，js 又创建了一个新的 String 对象，这个对象和之前扩展了 custom 这个属性的对象并不是同一个对象，这个新的对象并没有 custom 这个属性，所以再取这个 custom 的值时是为 undefined。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ol>
+<li>当我们想创建一个简单基本数据类型的变量时，可使用字面量的方式或使用该对象而不带 new 操作符</li>
+<li>使用该对象而不带 new 操作符的方式通常用于基本数据类型的转换</li>
+<li>当我们需要一个对象或想扩展一些属性和方式时，则使用 new 实例化一个对象的方式。</li>
+</ol>
+<h5 id="提问、思考"><a href="#提问、思考" class="headerlink" title="提问、思考"></a>提问、思考</h5><p>大家都知道在 new 操作符后面的函数就是一个构造函数，即: Number、String、Boolean都是一个构造函数，那为什么直接调用这个构造函数返回的变量是一个基本数据类型，而使用 new 操作符返回的变量却是一个对象呢 ？</p>
+<p>全部内容均由本人亲自编写，如发现有抄袭并没有注明出处，必当维权！</p>
+<p>有任何疑问或交流可发邮件至 690365451@qq.com</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/03/String-vs-new-String-衍生出来的问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-求数组的最大值、最小值" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -381,7 +491,7 @@ if( !Array.prototype.max ){
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Martin
+    		&copy; 2018 Martin
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
