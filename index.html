@@ -143,6 +143,202 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-面试题-1-js-变量作用域与声明提升" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/11/面试题-1-js-变量作用域与声明提升/">面试题(1) -- js  变量作用域与声明提升</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/11/面试题-1-js-变量作用域与声明提升/" class="archive-article-date">
+  	<time datetime="2018-01-11T13:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下面的 JavaScript 代码段中，alert 的结果是多少?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(a);</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+<p>答案： undefined</p>
+<p>函数内部的 var a=2 声明了一个变量 a ，这个声明会被提升到函数内的最前面，使得 alert(a) 的时候输出的就是这个刚刚声明但是还没来得及赋值的 a ，所以结果会是 undefined。</p>
+<p>该函数可以看做：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    alert(a);</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>涉及相关知识：变量的作用域与声明提升</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/11/面试题-1-js-变量作用域与声明提升/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-React-中引入图片的方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/11/React-中引入图片的方法/">React 中引入图片的方法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/11/React-中引入图片的方法/" class="archive-article-date">
+  	<time datetime="2018-01-11T13:05:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>引入图片是项目中经常使用的功能，那在 react 中怎样引入图片呢 ？</p>
+<p>1、通过 img 标签引入图片</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> myImages <span class="keyword">from</span> <span class="string">'../images/logo.png'</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; (&lt;img src=&#123;myImages&#125; /&gt;)</span><br></pre></td></tr></table></figure>
+<p>或：</p>
+<pre><code>export default () =&gt; (&lt;img src={require(&apos;../images/logo.png&apos;)} /&gt;)
+</code></pre><p>注意： 这里的 src 并不是图片的路径，而是把整个图片引入</p>
+<p>对比平时写的 img 标签：</p>
+<pre><code>&lt;img src=&apos;../images/logo.png&apos; /&gt;
+</code></pre><p>2、通过 css 作为某个容器的背景</p>
+<p>在 less 中 ： </p>
+<pre><code>background-image: url(&apos;../images/logo.png&apos;)
+</code></pre><p>这里填写的图片路径是相对于这个 less 文件的相对路径，还会看到的写法是：</p>
+<pre><code>background-image: url(~images/dashboard/logo.png)
+</code></pre><p>注意：这两种写法是不一样的，第二种写法 url 里的并不是字符串，没有使用双引号或单引号包着，而且路径前面有个 ~ ，说明这个路径并不是相对于这个 less 文件的相对路径，而是绝对路径，这个 images 是在 webpack 等打包工具的配置文件设置了的简写模式，例如在 webpack 配置文件中：</p>
+<pre><code>resolve: {
+    alias: {
+        &apos;src&apos;: path.resolve(__dirname, &apos;../src&apos;),
+        &apos;images&apos;: path.resolve(__dirname, &apos;../src/images&apos;),
+        &apos;less&apos;: path.resolve(__dirname, &apos;../src/less&apos;),
+    },
+}
+</code></pre><p>在配置文件中，设置了三个文件夹简写路径，相关知识可以查阅 webpack 官方文档。</p>
+<p>3、通过 style 属性编写内联样式</p>
+<p>react 是可以在 jsx 中编写内联样式的，例如：</p>
+<pre><code>&lt;div style={{width: 50, height: 50}} /&gt;
+</code></pre><p>当想在 style 中添加 backgroundImage ，它的写法是否和 css 中的一样呢？NO！虽然这里面写的都是 css 的相关样式，但是这是在 js 或 jsx 文件中编写，并不是在 css 文件中编写，所以它的写法跟 img 标签的引入方法有点雷同:</p>
+<pre><code>&lt;div style = {{
+        width: 50,
+        backgroundColor: 'red',
+        backgroundImage: 'url(' + require('../images/logo.png') + ')',
+    }} /&gt;
+</code></pre><p>通常会在打包工具中把图片处理成 base64 格式的，所以在浏览器端看到的都是 base64 字符串。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/react//" class="article-tag-list-link color1">react</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/11/React-中引入图片的方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-String-vs-new-String-衍生出来的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -572,6 +768,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
