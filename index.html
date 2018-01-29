@@ -143,33 +143,44 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-面试题-1-js-变量作用域与声明提升" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-如何使元素的高等于它的宽" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/11/面试题-1-js-变量作用域与声明提升/">面试题(1) -- js  变量作用域与声明提升</a>
+      <a class="article-title" href="/2018/01/29/如何使元素的高等于它的宽/">如何使元素的高等于它的宽</a>
     </h1>
   
 
         
-        <a href="/2018/01/11/面试题-1-js-变量作用域与声明提升/" class="archive-article-date">
-  	<time datetime="2018-01-11T13:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-11</time>
+        <a href="/2018/01/29/如何使元素的高等于它的宽/" class="archive-article-date">
+  	<time datetime="2018-01-29T12:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>下面的 JavaScript 代码段中，alert 的结果是多少?</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(a);</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
-<p>答案： undefined</p>
-<p>函数内部的 var a=2 声明了一个变量 a ，这个声明会被提升到函数内的最前面，使得 alert(a) 的时候输出的就是这个刚刚声明但是还没来得及赋值的 a ，所以结果会是 undefined。</p>
-<p>该函数可以看做：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a;</span><br><span class="line">    alert(a);</span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>涉及相关知识：变量的作用域与声明提升</p>
+        <p>需求：要求一个 div 的高等于它的宽，它的宽是会随着浏览器的大小而跟着变化的</p>
+<p>通常看到这种需求，第一反应就是使用 js 去控制这个 div ，我们先来简单的实现以下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// html </span></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"method-one"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeBoxHeight</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'.method-one'</span>).height($(<span class="string">'.method-one'</span>).width())</span><br><span class="line">&#125;</span><br><span class="line">$(<span class="built_in">document</span>).ready(changeBoxHeight)</span><br><span class="line">$(<span class="built_in">window</span>).resize(changeBoxHeight)</span><br></pre></td></tr></table></figure>
+<p>在这里使用 jq 相关的 api 来简单实现这个功能，但是当页面有很多这种 div 时，就显得这种方法相当的麻烦，需要一个个获取并赋值，有没有更好的方法或者使用 css 来解决这个问题呢？</p>
+<p>css 中是否有属性是和宽相关的呢，在盒子模型中的 padding 和 margin 属性是写百分比时，这个百分比是以谁做参照的呢？没错，这个百分比是容器宽度的百分比。</p>
+<p>有些人可能对这里有些误区，可能认为 padding-left 和 padding-right 是按照容器宽的百分比来计算的， padding-top 和 padding-bottom 是按照容器搞的百分比的计算的。这个是错误的！！！！</p>
+<p>正确的是：无论是 padding-left 、padding-right、padding-top 还是 padding-bottom 写百分比时都是按照容器的宽来计算的！<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" target="_blank" rel="external">相关文档</a></p>
+<p>margin 也是相同的道理，不知道的需要做一下笔记哦。</p>
+<p>然后怎么样去利用 padding 使容器的高等于它的宽呢？在这里，一个元素是做不到的，需要两个元素。</p>
+<p>html：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"method-two"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner-box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>css：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.method-two &#123;</span><br><span class="line">  width: 50%;   // 例如宽度是浏览器的一半</span><br><span class="line">  position: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.method-two:before &#123;</span><br><span class="line">  content: &apos;&apos;;</span><br><span class="line">  display: block;</span><br><span class="line">  padding-top: 100%;    // 使 .method-two 撑起来</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// .inner-box 使用绝对定位充满整个 .method-two</span><br><span class="line">.method-two .inner-box &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  top: 0;</span><br><span class="line">  bottom: 0;</span><br><span class="line">  left: 0;</span><br><span class="line">  right: 0;</span><br><span class="line">  background-color: silver;</span><br></pre></td></tr></table></figure></p>
+<p>这时 .method-two 和 .inner-box 的高都会随着 .method-two 的宽的变化而变化。</p>
+<p>可能有人觉得这里需要写一个伪元素，太麻烦，这里还有一种不需要伪元素的方法：</p>
+<p>html：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"method-three"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner-box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>css：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.method-three &#123;</span><br><span class="line">  position: relative;</span><br><span class="line">  width: 30%;</span><br><span class="line">  height: 0;            //  把高设为 0</span><br><span class="line">  font-size:0;          //  防止里面是 inline-block 元素时有空隙</span><br><span class="line">  padding-top: 30%;     //  padding-top 设置为和 width 一样的比例</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//  与方法二同理</span><br><span class="line">.method-three .inner-box &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  top: 0;</span><br><span class="line">  bottom: 0;</span><br><span class="line">  left: 0;</span><br><span class="line">  right: 0;</span><br><span class="line">  background-color: lightblue;/* show me! */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样一样能使 .method-three 和 .inner-box 的高都会随着 .method-three 的宽变化而变化。</p>
+<p>这里只是简单的实现了一下，当子元素非常复杂时还需具体情况具体分析。</p>
+<p>以上的相关例子均可在线查看：<a href="https://jsfiddle.net/8f5yk1av/1/" target="_blank" rel="external">在线例子</a></p>
 
       
 
@@ -178,22 +189,22 @@
     <div class="article-info article-info-index">
       
       
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/面试//" class="article-tag-list-link color3">面试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
         		</li>
       		
 		</ul>
 	</div>
 
+      
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/11/面试题-1-js-变量作用域与声明提升/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/29/如何使元素的高等于它的宽/">展开全文 >></a>
         </p>
       
 
@@ -771,6 +782,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
             
             <div class="clearfix"></div>
